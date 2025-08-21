@@ -7,7 +7,7 @@ import bcrypt from "bcrypt";
 export const getDataProfile = async (req: Request, res: Response) => {
   const user = req.user;
   try {
-    const result = await prisma.users.findUnique({
+    const result = await prisma.user.findUnique({
       where: {
         id: user?.id,
       },
@@ -31,7 +31,7 @@ export const patchDataProfile = async (req: Request, res: Response) => {
   const user = req.user;
   const { name } = req.body;
   try {
-    const result = await prisma.users.update({
+    const result = await prisma.user.update({
       where: {
         id: user?.id,
       },
@@ -49,7 +49,7 @@ export const changePassword = async (req: Request, res: Response) => {
   const user = req.user;
   const { oldPassword, password } = req.body;
   try {
-    const checkUser = await prisma.users.findUnique({
+    const checkUser = await prisma.user.findUnique({
       where: {
         id: user?.id,
       },
@@ -72,7 +72,7 @@ export const changePassword = async (req: Request, res: Response) => {
       process.env.BCRYPT_HASH as string
     );
 
-    await prisma.users.update({
+    await prisma.user.update({
       where: { id: user?.id },
       data: {
         password: hashedPassword,

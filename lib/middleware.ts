@@ -25,7 +25,7 @@ export const protectRoute = async (
       .json({ message: "Access Denied. No token provided" });
   }
 
-  const checkTokenExcisted = await prisma.sessions.findUnique({
+  const checkTokenExcisted = await prisma.session.findUnique({
     where: {
       token,
     },
